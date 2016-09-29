@@ -9,14 +9,26 @@ public class MatthewLLTest {
 		passVerbose = true;
 		test_testcode();
 		test_constructor();
-		test_add();
+		test_addAndRemove();
 	}
 	
-	public static void test_add(){
+	public static void test_addAndRemove(){
 		try{
-			MatthewLL<Integer> addList = new MatthewLL<Integer>();
-			addList.add(5);
-			test(addList.toString(), "[5]", "test_add1");
+			MatthewLL<Integer> list = new MatthewLL<Integer>();
+			list.add(5);
+			test(list.toString(), "[5]", "test_add1");
+			list.add(222);
+			test(list.toString(), "[5, 222]", "test_add2");
+			list.remove(1);
+			test(list.toString(), "[5]", "test_remove1");
+			list.remove(0);
+			test(list.toString(), "[]", "test_remove2");
+			list.add(12);
+			list.poll();
+			test(list.toString(), "[]", "test_poll1");
+			list.add(3);list.add(5);list.add(1);
+			list.poll();
+			test(list.toString(), "[5, 1]", "test_poll1");
 		} catch (Exception e){
 			if(failVerbose){
 				println("** FAILED: test_constructor1");

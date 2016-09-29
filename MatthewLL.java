@@ -13,10 +13,8 @@ public class MatthewLL<E> {
 	}
 	
 	public boolean add(E item){
-		if(start.getClass().equals(EmptyMatthewNode.class)){
+		if(start.getClass().equals(EmptyMatthewNode.class))
 			this.start = new MatthewNode<E>(item);
-			this.size++;
-		}
 		else{
 			MatthewNode<E> temp = start;
 			while(temp.hasNext()){
@@ -25,7 +23,30 @@ public class MatthewLL<E> {
 			MatthewNode<E> newNode = new MatthewNode<E>(item);
 			temp.setNext(newNode);
 		}
+		this.size++;
 		return true;
+	}
+	
+	public E remove(int index){
+		if(index >= this.size || index < 0)
+			throw new IndexOutOfBoundsException();
+		if(index == 0)
+			return poll();
+		MatthewNode<E> previous, current;
+		previous = new EmptyMatthewNode<E>();
+		current = start;
+		for(int ind = 1; ind <= index; ind++){
+			previous = current;
+			current = current.next();
+		}
+		previous.setNext(current.next());
+		return current.getData();
+	}
+	
+	public E poll(){
+		E value = start.getData();
+		start = start.next();
+		return value;
 	}
 	
 	
